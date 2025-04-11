@@ -1,5 +1,4 @@
 import {useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import IconRatingHalf from "../assets/rating-half.png";
 import IconRating from "../assets/rating.png";
 import IconPlay from "../assets/play-button.png";
