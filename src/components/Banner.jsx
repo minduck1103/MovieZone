@@ -1,11 +1,23 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 import IconRatingHalf from "../assets/rating-half.png";
 import IconRating from "../assets/rating.png";
 import IconPlay from "../assets/play-button.png";
+import { MovieContext } from "../context/MovieDetailContext";
 
 const Banner = () => {
   const [randomMovie, setRandomMovie] = useState(null);
-  const [movies, setMovies] = useState([]); //  Thêm state để lưu trữ danh sách phim
+  const [movies, setMovies] = useState([]);
+  const { handleVideoTrailer } = useContext(MovieContext);
+
+  const handleImageClick = () => {
+    if (randomMovie && randomMovie.id) {
+      console.log("Banner: Ảnh phim được click, movieId =", randomMovie.id);
+      handleVideoTrailer(randomMovie.id);
+    } else {
+      console.warn("Banner: Không có phim hoặc ID phim để phát trailer.");
+    }
+  };
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -21,9 +33,13 @@ const Banner = () => {
       try {
         const response = await fetch(url, options);
         const data = await response.json();
-        setMovies(data.results); //  Lưu danh sách phim vào state
+        if (data && data.results) {
+          setMovies(data.results);
+        } else {
+          console.error("Banner: Dữ liệu phim không hợp lệ từ API");
+        }
       } catch (error) {
-        console.error("Lỗi khi tìm nạp phim:", error);
+        console.error("Banner: Lỗi khi tìm nạp phim:", error);
       }
     };
 
@@ -32,15 +48,12 @@ const Banner = () => {
 
   useEffect(() => {
     if (movies.length > 0) {
-      const changeMovie = () => {
+      const intervalId = setInterval(() => {
         const randomIndex = Math.floor(Math.random() * movies.length);
         setRandomMovie(movies[randomIndex]);
-      };
+      }, 4000);
 
-      changeMovie(); //  Hiển thị phim đầu tiên ngay lập tức
-      const intervalId = setInterval(changeMovie, 2000); //  Đổi phim mỗi 2 giây
-
-      return () => clearInterval(intervalId); //  Xóa interval khi component unmount
+      return () => clearInterval(intervalId);
     }
   }, [movies]);
 
@@ -58,7 +71,7 @@ const Banner = () => {
         <div className="md:w-[50%] w-full ">
           <div className="flex flex-col space-y-6 items-start p-10">
             <p className="bg-gradient-to-r from-red-600 to-red-300 py-2 px-6">
-              Thịnh hành
+              Đang thịnh hành
             </p>
             {randomMovie ? (
               <div className="flex flex-col space-y-4">
@@ -67,7 +80,6 @@ const Banner = () => {
                     randomMovie.name ||
                     randomMovie.original_title}
                 </h1>
-                {/* Phần hiển thị rating */}
                 <div className="flex items-center space-x-3">
                   <img src={IconRating} alt="rating" className="w-8 h-8" />
                   <img src={IconRating} alt="rating" className="w-8 h-8" />
@@ -85,7 +97,10 @@ const Banner = () => {
               <button className="py-2 px-3 bg-black  text-white border border-black font-bold">
                 Chi tiết
               </button>
-              <button className="py-2 px-3 bg-red-600 text-white font-bold">
+              <button
+                className="py-2 px-3 bg-red-600 text-white font-bold"
+                onClick={handleImageClick}
+              >
                 Xem Phim
               </button>
             </div>
@@ -93,14 +108,18 @@ const Banner = () => {
         </div>
         <div className="md:w-[50%] w-full flex items-center justify-center">
           <div className="w-[300px] h-[400px] relative group">
-            <button className="w-full h-full absolute top-0 left-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+            <button
+              className="w-full h-full absolute top-0 left-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+              onClick={handleImageClick} 
+            >
               <img src={IconPlay} alt="play" className="w-16 h-16" />
             </button>
             {randomMovie && (
               <img
                 src={`${import.meta.env.VITE_IMG_URL}${randomMovie.poster_path}`}
                 alt="banner"
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full cursor-pointer"
+                onClick={handleImageClick}
               />
             )}
           </div>
