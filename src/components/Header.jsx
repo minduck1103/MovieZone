@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { Link, useNavigate } from "react-router-dom"; //  Thêm useNavigate
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; //  Import FontAwesomeIcon
-import { faSearch } from "@fortawesome/free-solid-svg-icons"; //  Import faSearch
+import { Link, useNavigate } from "react-router-dom"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ onSearch }) => {
   const [search, setSearch] = useState("");
-  const navigate = useNavigate(); //  Khởi tạo useNavigate
-
+  const navigate = useNavigate(); 
   const handleSearch = () => {
-    //  Hàm này sẽ được gọi khi click vào icon hoặc nhấn Enter
     if (search.trim()) {
       onSearch(search);
-      //  Nếu bạn muốn điều hướng đến trang kết quả tìm kiếm:
-      //  navigate(`/search?query=${search}`);
     }
   };
 
