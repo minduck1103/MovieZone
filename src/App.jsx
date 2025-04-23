@@ -115,7 +115,6 @@ function App() {
                     <ButtonWatchMore targetPage="/popular-movies" />
                   </div>
                   <MovieList
-                    title="Phim Đề Cử"
                     data={topRatedMovies.slice(0, 10)}
                   />
                 </div>
