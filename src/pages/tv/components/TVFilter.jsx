@@ -80,20 +80,20 @@ const TVFilter = ({
         )}
       </div>
 
-      {/* Quick Filters Row */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+      {/* Single Row Filters */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {/* Sort By */}
         <div className="relative">
           <button
             onClick={() => setIsSortOpen(!isSortOpen)}
-            className="w-full bg-gray-700 text-white px-4 py-2 rounded-lg text-left flex items-center justify-between hover:bg-gray-600 transition-colors"
+            className="w-full bg-gray-700 text-white px-3 py-2 rounded-lg text-left flex items-center justify-between hover:bg-gray-600 transition-colors text-sm"
           >
-            <span className="truncate">
+            <span className="truncate text-xs lg:text-sm">
               {sortOptions.find(opt => opt.value === sortBy)?.label || "Sắp xếp"}
             </span>
             <FontAwesomeIcon 
               icon={faChevronDown} 
-              className={`transition-transform ${isSortOpen ? 'rotate-180' : ''}`}
+              className={`transition-transform text-xs ${isSortOpen ? 'rotate-180' : ''}`}
             />
           </button>
           
@@ -106,7 +106,7 @@ const TVFilter = ({
                     onSortChange(option.value);
                     setIsSortOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-white hover:bg-gray-600 first:rounded-t-lg last:rounded-b-lg"
+                  className="w-full text-left px-3 py-2 text-white hover:bg-gray-600 first:rounded-t-lg last:rounded-b-lg text-sm"
                 >
                   {option.label}
                 </button>
@@ -120,7 +120,7 @@ const TVFilter = ({
           <select
             value={year || ""}
             onChange={(e) => onYearChange(e.target.value || null)}
-            className="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+            className="w-full bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none text-sm"
           >
             <option value="">Tất cả năm</option>
             {years.map((yearOption) => (
@@ -136,7 +136,7 @@ const TVFilter = ({
           <select
             value={rating || ""}
             onChange={(e) => onRatingChange(e.target.value || null)}
-            className="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+            className="w-full bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none text-sm"
           >
             <option value="">Tất cả đánh giá</option>
             <option value="8">8.0+ ⭐</option>
@@ -151,9 +151,24 @@ const TVFilter = ({
           <select
             value={status || ""}
             onChange={(e) => onStatusChange(e.target.value || null)}
-            className="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+            className="w-full bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none text-sm"
           >
             {statusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Network Filter */}
+        <div>
+          <select
+            value={network || ""}
+            onChange={(e) => onNetworkChange(e.target.value || null)}
+            className="w-full bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none text-sm"
+          >
+            {networkOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -165,39 +180,21 @@ const TVFilter = ({
         <div>
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition-colors flex items-center justify-center space-x-1 text-sm"
           >
-            <FontAwesomeIcon icon={faFilter} />
-            <span>Thể loại</span>
+            <FontAwesomeIcon icon={faFilter} className="text-xs" />
+            <span className="hidden sm:inline">Thể loại</span>
             <FontAwesomeIcon 
               icon={faChevronDown} 
-              className={`transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}
+              className={`transition-transform text-xs ${isFilterOpen ? 'rotate-180' : ''}`}
             />
           </button>
         </div>
       </div>
 
-      {/* Additional Filters Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        {/* Network Filter */}
-        <div>
-          <select
-            value={network || ""}
-            onChange={(e) => onNetworkChange(e.target.value || null)}
-            className="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
-          >
-            {networkOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
       {/* Genre Chips */}
       {isFilterOpen && (
-        <div className="border-t border-gray-700 pt-4">
+        <div className="border-t border-gray-700 pt-4 mt-4">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {genres.map((genre) => (
               <button
@@ -218,7 +215,7 @@ const TVFilter = ({
 
       {/* Selected Genres Display */}
       {selectedGenres.length > 0 && !isFilterOpen && (
-        <div className="border-t border-gray-700 pt-4">
+        <div className="border-t border-gray-700 pt-4 mt-4">
           <p className="text-sm text-gray-400 mb-2">Thể loại đã chọn:</p>
           <div className="flex flex-wrap gap-2">
             {selectedGenres.map((genreId) => {
