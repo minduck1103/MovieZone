@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HotMoviesPage from "./pages/HotMoviesPage";
 import PopularMoviesPage from "./pages/PopularMoviesPage";
 import GenresPage from "./pages/genres";
+import TVShowsPage from "./pages/tv";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/popular-movies" element={<PopularMoviesPage />} />
         <Route path="/genres" element={<GenresPage />} />
         <Route path="/genres/:genreId" element={<GenresPage />} />
+        <Route path="/tv" element={<TVShowsPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
