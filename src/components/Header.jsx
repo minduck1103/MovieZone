@@ -23,11 +23,11 @@ const Header = ({ onSearch }) => {
 
   const navLinks = [
     { path: "/", label: "Trang Chủ" },
-    { path: "/hot-movies", label: "Phim Hot" },
-    { path: "/popular-movies", label: "Phim Đề Cử" },
+    { path: "/movies", label: "Phim" },
     { path: "/tv", label: "TV Shows" },
     { path: "/genres", label: "Thể Loại" },
-    { path: "/upcoming", label: "Phim Sắp Chiếu" },
+    { path: "/hot-movies", label: "Phim Hot" },
+    { path: "/popular-movies", label: "Phim Đề Cử" },
   ];
 
   return (

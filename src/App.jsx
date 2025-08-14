@@ -76,6 +76,8 @@ function App() {
     setMediaType(type);
     if (type === "tv") {
       navigate("/tv");
+    } else if (type === "movie") {
+      navigate("/movies");
     }
   };
 
@@ -123,7 +125,7 @@ function App() {
                             Phim Hot
                           </h2>
                         </div>
-                        <ButtonWatchMore targetPage="/hot-movies" />
+                        <ButtonWatchMore targetPage="/movies" />
                       </div>
                       <MovieList
                         data={trendingMovies.slice(0, 10)}
@@ -139,7 +141,7 @@ function App() {
                             Phim Đề Cử
                           </h2>
                         </div>
-                        <ButtonWatchMore targetPage="/popular-movies" />
+                        <ButtonWatchMore targetPage="/movies?category=top_rated" />
                       </div>
                       <MovieList
                         data={topRatedMovies.slice(0, 10)}
