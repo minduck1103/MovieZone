@@ -12,7 +12,8 @@ dist
 dist-ssr
 *.local
 
-
+GENRE_SYSTEM_DEMO.md
+MVP_ROADMAP.md
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
