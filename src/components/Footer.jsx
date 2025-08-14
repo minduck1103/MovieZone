@@ -6,7 +6,7 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faPhone, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPhone, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = () => {
   return (
@@ -103,7 +103,7 @@ const Footer = () => {
                 <span>1900 1234</span>
               </li>
               <li className="flex items-center gap-3">
-                <FontAwesomeIcon icon={faLocationDot} className="text-red-500" />
+                                  <FontAwesomeIcon icon={faMapMarkerAlt} className="text-red-500" />
                 <span>332 Đường Cao Lỗ, Quận 8, TP.HCM</span>
               </li>
             </ul>
