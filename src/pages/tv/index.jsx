@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -23,7 +23,7 @@ import {
   faChevronRight, 
   faSpinner,
   faExclamationTriangle,
-  faTv,
+
   faFire,
   faStar,
   faBroadcastTower,
@@ -168,12 +168,13 @@ const TVShowsPage = () => {
             case "on_the_air":
               showsData = await getOnTheAirTVShows(currentPage);
               break;
-            default: // trending
+            default: { // trending
               const trendingShows = await getTrendingTVShows();
               setTVShows(trendingShows);
               setTotalPages(1);
               setTotalResults(trendingShows.length);
               return;
+            }
           }
 
           setTVShows(showsData.tvShows);
@@ -212,7 +213,7 @@ const TVShowsPage = () => {
 
   const handleMediaTypeChange = (type) => {
     if (type === "movie") {
-      navigate("/hot-movies");
+      navigate("/movies");
     }
     // If type is "tv", we're already on the right page
   };
