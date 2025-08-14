@@ -18,7 +18,7 @@ const MovieProvider = ({ children }) => {
   const [trailerUrl, setTrailerUrl] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const handleVideoTrailer = async (movieId) => {
+  const handleVideoTrailer = async (contentId, mediaType = "movie") => {
     const options = {
       method: "GET",
       headers: {
@@ -28,8 +28,9 @@ const MovieProvider = ({ children }) => {
     };
 
     try {
+      const endpoint = mediaType === "tv" ? "tv" : "movie";
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+        `https://api.themoviedb.org/3/${endpoint}/${contentId}/videos?language=en-US`,
         options
       );
 
