@@ -17,7 +17,6 @@ import {
 import { getMovieGenres } from "../../api/genreService";
 import MovieHero from "./components/MovieHero";
 import MovieFilter from "./components/MovieFilter";
-import MovieStats from "./components/MovieStats";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faChevronLeft, 
@@ -252,28 +251,7 @@ const MoviesPage = () => {
     }
   };
 
-  // Calculate stats for current category
-  const calculateMovieStats = () => {
-    if (!movies.length) return {};
-    
-    const avgRating = movies.reduce((sum, movie) => sum + (movie.vote_average || 0), 0) / movies.length;
-    const mostRecentYear = Math.max(...movies.map(movie => new Date(movie.release_date || 0).getFullYear()));
-    const avgPopularity = movies.reduce((sum, movie) => sum + (movie.popularity || 0), 0) / movies.length;
-    const topRatedMovie = movies.reduce((prev, current) => 
-      (current.vote_average > prev.vote_average) ? current : prev
-    );
-    const avgRuntime = movies.reduce((sum, movie) => sum + (movie.runtime || 120), 0) / movies.length;
 
-    return {
-      totalMovies: totalResults,
-      averageRating: avgRating,
-      mostRecentYear: isFinite(mostRecentYear) ? mostRecentYear : null,
-      popularityScore: Math.min((avgPopularity / 100) * 100, 100), // Convert to percentage, max 100
-      topRatedMovie: topRatedMovie?.title,
-      averageRuntime: Math.round(avgRuntime),
-      categoryType: category,
-    };
-  };
 
   // Loading state
   if (isLoading) {
@@ -357,8 +335,7 @@ const MoviesPage = () => {
                   <p className="text-gray-400 text-lg">{currentCategory.description}</p>
                 </div>
 
-                {/* Stats */}
-                <MovieStats {...calculateMovieStats()} />
+
 
                 {/* Filters */}
                 <MovieFilter
