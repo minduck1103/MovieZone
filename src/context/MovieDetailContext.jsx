@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-modal";
 import YouTube from "react-youtube";
@@ -79,4 +79,13 @@ MovieProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { MovieProvider, MovieContext };
+// Custom hook to use the MovieContext
+const useMovieContext = () => {
+  const context = useContext(MovieContext);
+  if (!context) {
+    throw new Error('useMovieContext must be used within a MovieProvider');
+  }
+  return context;
+};
+
+export { MovieProvider, MovieContext, useMovieContext };
