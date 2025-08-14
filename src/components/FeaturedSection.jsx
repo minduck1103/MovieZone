@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faArrowRight, 
@@ -19,6 +20,7 @@ const FeaturedSection = ({
   accentColor = "red"
 }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
+  const navigate = useNavigate();
 
   const getTitle = (item) => {
     return item.title || item.name || item.original_title || item.original_name;
@@ -27,6 +29,14 @@ const FeaturedSection = ({
   const getYear = (item) => {
     const date = item.release_date || item.first_air_date;
     return date ? new Date(date).getFullYear() : '';
+  };
+
+  const handleItemClick = (item) => {
+    if (type === "tv") {
+      navigate(`/tv/${item.id}`);
+    } else {
+      navigate(`/movie/${item.id}`);
+    }
   };
 
   const colorClasses = {
@@ -107,7 +117,8 @@ const FeaturedSection = ({
           {data?.slice(0, 10).map((item, index) => (
             <div
               key={item.id}
-              className={`group relative bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border ${colors.border} ${colors.hover} transition-all duration-500 hover:scale-105 hover:shadow-2xl`}
+              onClick={() => handleItemClick(item)}
+              className={`group relative bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border ${colors.border} ${colors.hover} transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer`}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
               style={{
