@@ -25,8 +25,8 @@ const Header = ({ onSearch }) => {
     { path: "/", label: "Trang Chủ" },
     { path: "/hot-movies", label: "Phim Hot" },
     { path: "/popular-movies", label: "Phim Đề Cử" },
-    { path: "/upcoming", label: "Phim Sắp Chiếu" },
     { path: "/genres", label: "Thể Loại" },
+    { path: "/upcoming", label: "Phim Sắp Chiếu" },
   ];
 
   return (
