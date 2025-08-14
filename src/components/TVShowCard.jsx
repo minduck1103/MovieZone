@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import { MovieContext } from "../context/MovieDetailContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
@@ -13,6 +14,7 @@ import {
 
 const TVShowCard = ({ tvShow, index = 0 }) => {
   const { handleVideoTrailer } = useContext(MovieContext);
+  const navigate = useNavigate();
 
   if (!tvShow) return null;
 
@@ -55,6 +57,10 @@ const TVShowCard = ({ tvShow, index = 0 }) => {
 
   const statusText = statusMap[status] || status;
 
+  const handleCardClick = () => {
+    navigate(`/tv/${id}`);
+  };
+
   const handleWatchTrailer = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,7 +69,8 @@ const TVShowCard = ({ tvShow, index = 0 }) => {
 
   return (
     <div 
-      className="group relative bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:z-10"
+      onClick={handleCardClick}
+      className="group relative bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:z-10 cursor-pointer"
       style={{
         animationDelay: `${index * 100}ms`,
       }}
